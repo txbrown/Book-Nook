@@ -1,0 +1,145 @@
+directive @goModel(
+  model: String
+  models: [String!]
+) on OBJECT | INPUT_OBJECT | SCALAR | ENUM | INTERFACE | UNION
+
+directive @goField(
+  forceResolver: Boolean
+  name: String
+) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+
+type Author {
+  id: String!
+  Name: String!
+  ImageURL: String!
+  SmallImageURL: String!
+  LargeImageURL: String!
+  Link: String!
+  AverageRating: Float!
+  RatingsCount: Int!
+  TextReviewsCount: Int!
+  FansCount: Int!
+  AuthorFollowers: Int!
+  About: String!
+  WorksCount: Int!
+  Gender: String!
+  Hometown: String!
+  BornAt: String!
+  DiedAt: String!
+  GoodreadsAuthor: Boolean!
+  UserID: String!
+  Books: [AuthorBook!]!
+}
+
+type AuthorBook {
+  ID: String!
+  ISBN: String!
+  ISBN13: String!
+  TextReviewsCount: Int!
+  URI: String!
+  Title: String!
+  TitleWithoutSeries: String!
+  ImageURL: String!
+  SmallImageURL: String!
+  LargeImageURL: String!
+  Link: String!
+  NumPages: Int!
+  Format: String!
+  EditionInformation: String!
+  Publisher: String!
+  PublicationDay: Int!
+  PublicationYear: Int!
+  PublicationMonth: Int!
+  AverageRating: Float!
+  RatingsCount: Int!
+  Description: String!
+  Authors: [Author!]!
+}
+
+type Review {
+  ID: String!
+  Book: AuthorBook!
+  Rating: Int!
+  StartedAt: String!
+  ReadAt: String!
+  DateAdded: String!
+  DateUpdated: String!
+  ReadCount: Int!
+  Body: String!
+}
+
+type ReviewCounts {
+  ID: Int!
+  ISBN: String!
+  ISBN13: String!
+  RatingsCount: Int!
+  ReviewsCount: Int!
+  TextReviewsCount: Int!
+  WorkRatingsCount: Int!
+  WorkReviewsCount: Int!
+  WorkTextReviewsCount: Int!
+  AverageRating: String!
+}
+
+type User {
+  ID: String!
+  Name: String!
+  Link: String!
+  ImageURL: String!
+  SmallImageURL: String!
+  About: String!
+  Gender: String!
+  Location: String!
+  Website: String!
+  Joined: String!
+  LastActive: String!
+  FriendsCount: Int!
+  GroupsCount: Int!
+  ReviewCount: Int!
+  UserShelves: [UserShelf!]!
+}
+
+type UserShelf {
+  ID: String!
+  Name: String!
+  BookCount: String!
+  ExclusiveFlag: Boolean!
+  Description: String!
+}
+
+type ResultAuthor {
+  ID: Int!
+  Name: String!
+}
+
+type ResultBook {
+  ID: Int!
+  Title: String!
+  Author: ResultAuthor!
+  ImageURL: String!
+  SmallImageURL: String!
+}
+
+type SearchResult {
+  ID: Int!
+  BooksCount: Int!
+  RatingsCount: Int!
+  TextReviewsCount: Int!
+  OriginalPublicationYear: Int!
+  OriginalPublicationMonth: Int!
+  OriginalPublicationDay: Int!
+  AverageRating: Float! @goField(forceResolver: true)
+  BestBook: ResultBook!
+}
+
+enum SearchField {
+  author
+  title
+  all
+}
+
+type Query {
+  author(id: String!): Author!
+  user(id: String!): User!
+  searchBooks(query: String!, page: Int!, field: SearchField!): [SearchResult!]!
+}

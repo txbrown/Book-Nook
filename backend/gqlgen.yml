@@ -1,0 +1,22 @@
+# .gqlgen.yml example
+#
+# Refer to https://gqlgen.com/config/
+# for detailed .gqlgen.yml documentation.
+
+schema:
+  - schema.graphql
+exec:
+  filename: ./generated/generated.go
+model:
+  filename: ./models/models_gen.go
+resolver:
+  filename: ./resolvers/resolver.go
+  type: Resolver
+autobind:
+  [
+    'booknook-backend/goodreads/responses',
+    'booknook-backend/goodreads/responses/results',
+  ]
+models:
+  Float32:
+    model: booknook-backend/scalars.Float32
