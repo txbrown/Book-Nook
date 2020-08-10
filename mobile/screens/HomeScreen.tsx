@@ -4,7 +4,7 @@ import {
   Image,
   KeyboardAvoidingView,
   Text,
-  View
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { useNavigation } from 'react-navigation-hooks';
@@ -57,18 +57,18 @@ const styles = {
     borderTopRightRadius: 16,
 
     paddingLeft: 16,
-    paddingRight: 16
+    paddingRight: 16,
   },
   dragHandler: {
     alignSelf: 'stretch',
     height: 32,
     alignItems: 'center',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 };
 
 const NoBooksView: React.FunctionComponent<NoBooksViewProps> = ({
-  onAddBookPress
+  onAddBookPress,
 }) => {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -95,11 +95,12 @@ const FindBooksView: React.FunctionComponent = ({}) => {
     variables: {
       query: searchQuery,
       page: 0,
-      field: 'all'
-    }
+      field: 'all',
+    },
   });
 
   if (res.error) {
+    console.log(res.error);
     return <Text>Something went wrong...</Text>;
   }
 
@@ -108,7 +109,7 @@ const FindBooksView: React.FunctionComponent = ({}) => {
       <View style={{ marginBottom: 16 }}>
         <SearchInput
           placeholder='Find your next train buddy'
-          onChangeText={text => {
+          onChangeText={(text) => {
             setSearchQuery(text);
           }}
         />
@@ -120,13 +121,13 @@ const FindBooksView: React.FunctionComponent = ({}) => {
           onResultPress={() => navigate('Book')}
           results={
             res.data
-              ? res.data.searchBooks.map(item => {
+              ? res.data.searchBooks.map((item) => {
                   return {
                     title: item.BestBook.Title,
                     imageUrl: item.BestBook.ImageURL,
                     originalPublicationYear: item.OriginalPublicationYear,
                     originalPublicationMonth: item.OriginalPublicationMonth,
-                    id: item.BestBook.ID
+                    id: item.BestBook.ID,
                   };
                 })
               : []
@@ -137,7 +138,7 @@ const FindBooksView: React.FunctionComponent = ({}) => {
   );
 };
 
-const HomeScreen: React.FunctionComponent<IHomeScreenProps> = props => {
+const HomeScreen: React.FunctionComponent<IHomeScreenProps> = (props) => {
   const [showAddBook, setShowAddBook] = React.useState(false);
   const panelRef = React.useRef(null);
 
@@ -159,7 +160,7 @@ const HomeScreen: React.FunctionComponent<IHomeScreenProps> = props => {
         height={screenHeight - 100}
         draggableRange={{ top: screenHeight - 200, bottom: 0 }}
       >
-        {dragHandler => (
+        {(dragHandler) => (
           <KeyboardAvoidingView style={styles.container} behavior='padding'>
             <View style={styles.dragHandler} {...dragHandler}>
               {/* <Text>Drag handler</Text> */}

@@ -4,8 +4,8 @@ import { createClient, Provider, useQuery } from 'urql';
 import AppNavigator from './navigation';
 
 const client = createClient({
-  url: 'http://85d935dc.eu.ngrok.io/query',
-  fetchOptions: { headers: { origin: 'localhost' } }
+  url: 'https://salty-river-32604.herokuapp.com/query',
+  fetchOptions: { headers: { origin: 'localhost' } },
 });
 
 const getUser = `
@@ -42,6 +42,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 });

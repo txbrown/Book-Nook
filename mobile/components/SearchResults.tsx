@@ -17,7 +17,7 @@ const monthNames = [
   'September',
   'October',
   'November',
-  'December'
+  'December',
 ];
 
 interface Result {
@@ -41,21 +41,21 @@ const BookCover = styled(Image)`
 
 const SearchResults: React.FunctionComponent<ISearchResultsProps> = ({
   results,
-  onResultPress
+  onResultPress,
 }) => {
   return (
     <View>
       <FlatList
         style={{ flex: 1 }}
         data={results}
-        keyExtractor={({ id }) => id}
+        keyExtractor={({ id }) => `${id}`}
         renderItem={({ item }) => {
           return (
             <TouchableWithoutFeedback onPress={() => onResultPress(item.id)}>
               <View
                 style={{
                   flexDirection: 'row',
-                  marginBottom: 32
+                  marginBottom: 32,
                 }}
               >
                 <BookCover source={{ uri: item.imageUrl }} resizeMode='cover' />
@@ -63,7 +63,7 @@ const SearchResults: React.FunctionComponent<ISearchResultsProps> = ({
                   <View
                     style={{
                       flexDirection: 'row',
-                      flex: 1
+                      flex: 1,
                     }}
                   >
                     <Title>{item.title}</Title>
