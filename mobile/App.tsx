@@ -3,8 +3,13 @@ import { StyleSheet, Text, View } from 'react-native';
 import { createClient, Provider, useQuery } from 'urql';
 import AppNavigator from './navigation';
 
+const url =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:8080/query'
+    : 'https://boiling-brook-82152.herokuapp.com/query';
+
 const client = createClient({
-  url: 'https://salty-river-32604.herokuapp.com/query',
+  url,
   fetchOptions: { headers: { origin: 'localhost' } },
 });
 
