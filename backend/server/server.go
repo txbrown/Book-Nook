@@ -42,10 +42,10 @@ func main() {
 	res := resolvers.NewResolvers()
 	router.Handle("/", handler.Playground("GraphQL playground", "/query"))
 	router.Handle("/query", handler.GraphQL(generated.NewExecutableSchema(generated.Config{Resolvers: res}), handler.WebsocketUpgrader(upgrader)))
-	srv := &http.Server{Addr: port, Handler: router}
+	srv := &http.Server{Addr: ":" + port, Handler: router}
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
-	srv.Addr = port
+
 	if err := srv.ListenAndServe(); err != http.ErrServerClosed {
 		// unexpected error. port in use?
 		log.Fatalf("ListenAndServe(): %v", err)
