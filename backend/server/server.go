@@ -45,6 +45,7 @@ func main() {
 	srv := &http.Server{Addr: port, Handler: router}
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
+	srv.Addr = port
 	if err := srv.ListenAndServe(); err != http.ErrServerClosed {
 		// unexpected error. port in use?
 		log.Fatalf("ListenAndServe(): %v", err)
