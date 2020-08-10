@@ -33,7 +33,7 @@ func main() {
 	upgrader := websocket.Upgrader{
 		CheckOrigin: func(r *http.Request) bool {
 			// Check against your desired domains here
-			return r.Host == "localhost"
+			return r.Host == "*"
 		},
 		ReadBufferSize:  1024,
 		WriteBufferSize: 1024,
